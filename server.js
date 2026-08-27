@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 5000;
 
 // Get all books
 app.get("/api/books", (req, res) => {
-  pool.query("SELECT * FROM booktitle", (err, rows) => {
+  pool.query("SELECT * FROM books", (err, rows) => {
     if (err) {
       console.error("Error fetching data:", err);
       return res.status(500).json({ msg: "Error fetching data" });
