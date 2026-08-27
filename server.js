@@ -20,9 +20,9 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
-// Get all books
-app.get("/api/books", (req, res) => {
-  pool.query("SELECT * FROM books", (err, rows) => {
+// Get all book titles
+app.get("/api/booktitle", (req, res) => {
+  pool.query("SELECT * FROM booktitle", (err, rows) => {
     if (err) {
       console.error("Error fetching data:", err);
       return res.status(500).json({ msg: "Error fetching data" });
@@ -31,12 +31,12 @@ app.get("/api/books", (req, res) => {
   });
 });
 
-// Add a new book
-app.post("/api/books", (req, res) => {
-  const { books, author, yearpub } = req.body;
+// Add a new book title
+app.post("/api/booktitle", (req, res) => {
+  const { booktitle, author, year } = req.body; // match schema
   pool.query(
-    "INSERT INTO books (booktitle, author, year) VALUES (?, ?, ?)",
-    [books, author, yearpub],
+    "INSERT INTO booktitle (booktitle, author, year) VALUES (?, ?, ?)",
+    [booktitle, author, year],
     (err) => {
       if (err) {
         console.error("Error inserting data:", err);
@@ -47,8 +47,7 @@ app.post("/api/books", (req, res) => {
   );
 });
 
-// Search by ID (uncomment if needed)
-/*
+// Search by ID
 app.get("/api/booktitle/:id", (req, res) => {
   const id = req.params.id;
   pool.query("SELECT * FROM booktitle WHERE id = ?", [id], (err, rows) => {
@@ -57,21 +56,19 @@ app.get("/api/booktitle/:id", (req, res) => {
       return res.status(500).json({ msg: "Error fetching data" });
     }
     if (rows.length > 0) {
-      res.json(rows);
+      res.json(rows[0]);
     } else {
       res.status(404).json({ msg: `${id} not found` });
     }
   });
 });
-*/
 
-// Update a book (uncomment if needed)
-/*
+// Update a book title
 app.put("/api/booktitle", (req, res) => {
-  const { id, book, author, yearpub } = req.body;
+  const { id, booktitle, author, year } = req.body;
   pool.query(
-    "UPDATE booktitle SET booktitle = ?, Author = ?, Year_Published = ? WHERE id = ?",
-    [book, author, yearpub, id],
+    "UPDATE booktitle SET booktitle = ?, author = ?, year = ? WHERE id = ?",
+    [booktitle, author, year, id],
     (err) => {
       if (err) {
         console.error("Error updating data:", err);
@@ -81,10 +78,8 @@ app.put("/api/booktitle", (req, res) => {
     }
   );
 });
-*/
 
-// Delete a book (uncomment if needed)
-/*
+// Delete a book title
 app.delete("/api/booktitle", (req, res) => {
   const { id } = req.body;
   pool.query("DELETE FROM booktitle WHERE id = ?", [id], (err) => {
@@ -95,7 +90,6 @@ app.delete("/api/booktitle", (req, res) => {
     res.json({ msg: "Successfully deleted" });
   });
 });
-*/
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
