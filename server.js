@@ -2,10 +2,13 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mysql = require("mysql2");
+
+// Middleware setup
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-// Use environment variables or fallback defaults
+// Database connection pool
 const pool = mysql.createPool({
   host: "sql.freedb.tech",
   user: "u_pV9axE",
@@ -16,11 +19,13 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-app.use(express.urlencoded({ extended: false }));
-app.use(cors());
-app.use(express.json());
-
+// Port setup
 const PORT = process.env.PORT || 5000;
+
+// Root route
+app.get('/', (req, res) => {
+  res.send("Backend is running");
+});
 
 // Get all book titles
 app.get("/api/booktitle", (req, res) => {
@@ -69,7 +74,7 @@ app.get("/api/booktitle/:id", (req, res) => {
 app.put("/api/booktitle", (req, res) => {
   const { id, booktitle, author, year } = req.body;
   pool.query(
-    "UPDATE booktitle SET booktitle = ?, author = ?, year = ? WHERE id = ?",
+    "UPDATE books SET booktitle = ?, author = ?, year = ? WHERE id = ?",
     [booktitle, author, year, id],
     (err) => {
       if (err) {
@@ -93,6 +98,7 @@ app.delete("/api/booktitle", (req, res) => {
   });
 });
 
+// Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
