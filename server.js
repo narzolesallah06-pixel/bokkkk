@@ -11,7 +11,7 @@ const pool = mysql.createPool({
   database: "freedb_6GM1mEc9",
   connectionLimit: 10,
   waitForConnection: true,
-  queuLimit: 0,
+  queueLimit: 0,
 });
 
 app.use(express.urlencoded({ extended: false }));
