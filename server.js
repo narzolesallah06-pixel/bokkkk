@@ -32,7 +32,7 @@ app.get("/api/booktitle", (req, res) => {
 });
 
 // Add a new book
-app.post("/api/booktitle", (req, res) => {
+app.post("/api/books", (req, res) => {
   const { books, author, yearpub } = req.body;
   pool.query(
     "INSERT INTO booktitle (booktitle, author, year) VALUES (?, ?, ?)",
