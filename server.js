@@ -5,7 +5,7 @@ const mysql = require("mysql2");
 
 // Use environment variables or fallback defaults
 const pool = mysql.createPool({
-  host: "sql:freedb.tech",
+  host: "sql.freedb.tech",
   user: "u_pV9axE",
   password: "SPzTvXkx0cA9",
   database: "freedb_6GM1mEc9",
