@@ -35,7 +35,7 @@ app.get("/api/booktitle", (req, res) => {
 app.post("/api/booktitle", (req, res) => {
   const { books, author, yearpub } = req.body;
   pool.query(
-    "INSERT INTO booktitle (booktitle, Author, Year_Published) VALUES (?, ?, ?)",
+    "INSERT INTO booktitle (booktitle, author, year) VALUES (?, ?, ?)",
     [books, author, yearpub],
     (err) => {
       if (err) {
