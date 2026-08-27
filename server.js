@@ -21,7 +21,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 // Get all books
-app.get("/api/booktitle", (req, res) => {
+app.get("/api/books", (req, res) => {
   pool.query("SELECT * FROM booktitle", (err, rows) => {
     if (err) {
       console.error("Error fetching data:", err);
@@ -35,7 +35,7 @@ app.get("/api/booktitle", (req, res) => {
 app.post("/api/books", (req, res) => {
   const { books, author, yearpub } = req.body;
   pool.query(
-    "INSERT INTO booktitle (booktitle, author, year) VALUES (?, ?, ?)",
+    "INSERT INTO books (booktitle, author, year) VALUES (?, ?, ?)",
     [books, author, yearpub],
     (err) => {
       if (err) {
