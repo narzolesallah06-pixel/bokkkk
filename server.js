@@ -5,13 +5,13 @@ const mysql = require("mysql2");
 
 // Use environment variables or fallback defaults
 const pool = mysql.createPool({
-  host: process.env.DB_HOST || "sql.freedb.tech",
-  user: process.env.DB_USER || "u_pV9axE",
-  password: process.env.DB_PASSWORD || "SPzTvXkx0cA9",
-  database: process.env.DB_NAME || "freedb_6GM1mEc9",
+  host: "sql:freedb.tech",
+  user: "u_pV9axE",
+  password: "SPzTvXkx0cA9",
+  database: "freedb_6GM1mEc9",
   connectionLimit: 10,
-  waitForConnections: true,
-  queueLimit: 0,
+  waitForConnection: true,
+  queuLimit: 0,
 });
 
 app.use(express.urlencoded({ extended: false }));
